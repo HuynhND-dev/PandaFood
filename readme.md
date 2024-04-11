@@ -3,8 +3,8 @@
 
 ## Hướng dẫn cài đặt.
 	-Clone source code project về local
-    -Tạo database mysql và import file dtc_pandafood.sql
-    (dtc_pandafood.sql nằm trong thư mục database)
+    -Tạo database mysql và import file banhang.sql
+    (banhang.sql nằm trong thư mục database)
 	-Duplicate file env.example và rename thành file .env
     -Cấu hình kết nối database tại .env vừa đổi tên 
 	-Chạy lệnh composer install để cài đặt các packages
@@ -13,4 +13,3 @@
     -đường dẫn đến trang quản trị: /public/admincp
     -Tài khoản demo admin: admin/admin1
     -Tài khoản demo khách: khach/khach
-
