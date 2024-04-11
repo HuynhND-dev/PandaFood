@@ -29,6 +29,7 @@ class ShopController extends Controller
         return redirect()->intended('/tai-khoan/thong-tin')->with('success', 'Đăng ký shop thành công');
     }
 
+
     public function getShop() {
         return view('shop.index');
     }
@@ -117,6 +118,7 @@ class ShopController extends Controller
     }
 
     public function getEditOrder($order_id){
+
 
 //        $data['order'] = DB::table('pdf_orders')
 //            ->join('pdf_orderdetails', 'pdf_orders.order_id', '=', 'pdf_orderdetails.order_id')

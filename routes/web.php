@@ -14,6 +14,7 @@ Route::get('/location', function (){
    return view('frontend/location');
 });
 
+
 Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/', 'FrontendController@getHome');
     Route::get('san-pham/{product_id}-{product_slug}.html', 'FrontendController@getDetail')

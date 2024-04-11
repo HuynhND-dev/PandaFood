@@ -1,4 +1,4 @@
-@extends('admincp.master')
+@extends('shop.master')
 @section('title', 'Cập nhật sản phẩm')
 @section('content')
 
