@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 26, 2018 lúc 04:39 AM
--- Phiên bản máy phục vụ: 10.1.30-MariaDB
--- Phiên bản PHP: 5.6.33
+-- Máy chủ: 127.0.0.1:3306
+-- Thời gian đã tạo: Th4 11, 2024 lúc 04:38 AM
+-- Phiên bản máy phục vụ: 10.4.20-MariaDB
+-- Phiên bản PHP: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `dtc_pandafood`
+-- Cơ sở dữ liệu: `banhang`
 --
 
 -- --------------------------------------------------------
@@ -63,6 +62,16 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('pic23130@nezid.com', 'lzMnclyBOZJfMtYXJQBXvyHp53zpL00tmlT3QDIaL1peJxzQK66mU7UpWxb7VMoU', '2023-12-21 10:04:28'),
+('jok71298@zbock.com', 'nnbrnMKxuFqeDhJkFq4yzgNpoTtNZnC45PQ1EQnjpOAQJdTQeykbkGytLPyZWlbc', '2023-12-21 10:05:37'),
+('dark2795@gmail.com', 'i1QQhMWInmZIZ3XiQR1qOEFHGU0MISFRz3otTPLeKym9TP73mVdTJBFiTAtStXk7', '2024-01-11 12:30:01'),
+('dev.huynhnd@gmail.com', 'h1xWHDh41sdWKASFNsJayUEuOUdFSgPrv7dxSD7E4qHLD2qL2LSgxroek7V5vlXT', '2024-01-19 11:45:28');
 
 -- --------------------------------------------------------
 
@@ -115,7 +124,8 @@ INSERT INTO `pdf_categories` (`category_id`, `category_title`, `category_slug`, 
 (16, 'Rau - Củ - Quả', 'rau-cu-qua', '2018-06-16 08:34:16', '2018-06-16 08:34:16'),
 (17, 'Thịt heo, bò sạch', 'thit-heo-bo-sach', '2018-06-16 08:35:09', '2018-06-16 08:35:09'),
 (18, 'Hải sản sạch', 'hai-san-sach', '2018-06-16 08:35:56', '2018-06-16 08:35:56'),
-(19, 'Thực phẩm khô', 'thuc-pham-kho', '2018-06-16 08:36:30', '2018-06-16 08:36:30');
+(19, 'Thực phẩm khô', 'thuc-pham-kho', '2018-06-16 08:36:30', '2018-06-16 08:36:30'),
+(22, 'test', 'test', '2024-01-18 14:35:21', '2024-01-18 14:35:34');
 
 -- --------------------------------------------------------
 
@@ -134,7 +144,8 @@ CREATE TABLE `pdf_groups` (
 
 INSERT INTO `pdf_groups` (`group_id`, `group_name`) VALUES
 (1, 'Quản trị viên'),
-(2, 'Khách hàng');
+(2, 'Khách hàng'),
+(3, 'Shop');
 
 -- --------------------------------------------------------
 
@@ -166,7 +177,7 @@ CREATE TABLE `pdf_information` (
 --
 
 INSERT INTO `pdf_information` (`info_id`, `info_name`, `info_title`, `info_phone`, `info_email`, `info_address`, `info_imgmain`, `info_imgtitle`, `info_facebook`, `info_googleplus`, `info_embedcode`, `info_owner`, `info_keywords`, `info_description`, `created_at`, `updated_at`) VALUES
-(1, 'PandaFood', 'Cửa hàng thực phẩm sạch PandaFood', '(+84) 0166-397-1006', 'pandafoodshopvn@gmail.com', '15 Ngô Thì Nhậm', 'lgpdf.png', 'lgpandafood.png', '', '', '', 'DoubleTC', 'pandafood, thuc pham, thuc pham sach, cua hang thuc pham sach', 'Cửa hàng thực phẩm sạch PandaFood chuyên cung các loại thực phẩm sạch có chất lượng tốt, nguồn gốc rõ ràng', NULL, '2018-06-24 17:25:35');
+(1, 'DanaFood', 'Cửa hàng thực phẩm sạch DanaFood', '(+84)0166', 'danafoodshopvn@gmail.com', '15 Ngô Thì Nhậm', 'lgpdf.png', 'lgpandafood.png', '', '', '', 'HuynhND', 'danafood, thuc pham, thuc pham sach, cua hang thuc pham sach', 'Cửa hàng thực phẩm sạch DanaFood chuyên cung các loại thực phẩm sạch có chất lượng tốt, nguồn gốc rõ ràng', NULL, '2023-12-19 13:05:18');
 
 -- --------------------------------------------------------
 
@@ -191,11 +202,21 @@ CREATE TABLE `pdf_orderdetails` (
 
 INSERT INTO `pdf_orderdetails` (`detail_id`, `detail_qty`, `detail_price`, `detail_subtotal`, `product_id`, `order_id`, `created_at`, `updated_at`) VALUES
 (15, 7, 70000, 490000, 23, 39, '2018-06-24 20:28:10', '2018-06-24 20:28:10'),
-(16, 4, 29000, 116000, 17, 40, '2018-06-25 06:40:48', '2018-06-25 06:40:48'),
 (17, 3, 23000, 69000, 12, 40, '2018-06-25 06:40:48', '2018-06-25 06:40:48'),
 (18, 7, 129000, 903000, 14, 41, '2018-06-25 06:53:52', '2018-06-25 06:53:52'),
 (19, 4, 70000, 280000, 23, 41, '2018-06-25 06:53:52', '2018-06-25 06:53:52'),
-(20, 5, 42000, 210000, 16, 42, '2018-06-25 08:39:54', '2018-06-25 08:39:54');
+(21, 1, 70000, 70000, 23, 43, '2023-12-19 12:51:18', '2023-12-19 12:51:18'),
+(22, 1, 89000, 89000, 15, 45, '2024-01-11 13:19:54', '2024-01-11 13:19:54'),
+(23, 12, 70000, 840000, 23, 45, '2024-01-11 13:20:19', '2024-01-11 13:20:19'),
+(24, 7, 12000, 84000, 29, 46, '2024-01-11 14:59:15', '2024-01-11 14:59:15'),
+(25, 1, 70000, 70000, 23, 47, '2024-01-12 08:56:58', '2024-01-12 08:56:58'),
+(26, 5, 12000, 60000, 29, 48, '2024-01-12 09:49:12', '2024-01-12 09:49:12'),
+(27, 2, 20000, 40000, 31, 48, '2024-01-12 09:49:12', '2024-01-12 09:49:12'),
+(28, 6, 10000, 60000, 30, 48, '2024-01-12 09:49:12', '2024-01-12 09:49:12'),
+(31, 3, 127000, 381000, 35, 50, '2024-01-18 14:42:19', '2024-01-18 14:42:19'),
+(32, 1, 263000, 263000, 20, 51, '2024-01-19 16:16:39', '2024-01-19 16:16:39'),
+(33, 1, 89000, 89000, 15, 51, '2024-01-19 16:16:39', '2024-01-19 16:16:39'),
+(34, 3, 30000, 90000, 36, 52, '2024-01-19 16:26:05', '2024-01-19 16:26:05');
 
 -- --------------------------------------------------------
 
@@ -215,6 +236,7 @@ CREATE TABLE `pdf_orders` (
   `order_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `order_billoflanding` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `shop_id` int(10) NOT NULL,
   `shipper_id` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -224,11 +246,17 @@ CREATE TABLE `pdf_orders` (
 -- Đang đổ dữ liệu cho bảng `pdf_orders`
 --
 
-INSERT INTO `pdf_orders` (`order_id`, `order_total`, `order_name`, `order_phone`, `order_address`, `order_note`, `order_receivetime`, `order_methodpayment`, `order_status`, `order_billoflanding`, `user_id`, `shipper_id`, `created_at`, `updated_at`) VALUES
-(39, 490000, 'Hoàng Công Thành', '01663971006', '15 Ngô Thì Nhậm, P. Quang Trung, ', '', '2018-06-28 20:28:10', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 1, 0, '2018-06-24 20:28:10', '2018-06-24 20:28:10'),
-(40, 185000, 'Hoàng Công Thành', '01663971006', '15 Ngô Thì Nhậm, P. Quang Trung, TP. Thái Bình', '', '2018-06-29 06:40:48', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 0, '2018-06-25 06:40:48', '2018-06-25 06:40:48'),
-(41, 1183000, 'Hoàng Công Thành', '01663971006', '15 Ngô Thì Nhậm, P. Quang Trung, TP. Thái Bình', '', '2018-06-29 06:53:52', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 0, '2018-06-25 06:53:52', '2018-06-25 06:53:52'),
-(42, 210000, 'Hoàng Công Thành', '01663971006', '15 Ngô Thì Nhậm, P. Quang Trung, TP. Thái Bình', '', '2018-06-29 08:39:54', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 0, '2018-06-25 08:39:54', '2018-06-25 08:39:54');
+INSERT INTO `pdf_orders` (`order_id`, `order_total`, `order_name`, `order_phone`, `order_address`, `order_note`, `order_receivetime`, `order_methodpayment`, `order_status`, `order_billoflanding`, `user_id`, `shop_id`, `shipper_id`, `created_at`, `updated_at`) VALUES
+(39, 490000, 'Nguyễn Đức Huynh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2018-06-28 20:28:10', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 1, 5, 0, '2018-06-24 20:28:10', '2018-06-24 20:28:10'),
+(40, 185000, 'Nguyễn Đức Huynh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2018-06-29 06:40:48', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 5, 0, '2018-06-25 06:40:48', '2018-06-25 06:40:48'),
+(41, 1183000, 'Nguyễn Đức Huynh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2018-06-29 06:53:52', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 5, 0, '2018-06-25 06:53:52', '2018-06-25 06:53:52'),
+(42, 210000, 'Nguyễn Đức Huynh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2018-06-29 08:39:54', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 2, 5, 0, '2018-06-25 08:39:54', '2018-06-25 08:39:54'),
+(43, 84700, 'Nguyễn Đức Huynh', '0377545091', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2023-12-23 12:51:18', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 1, 5, 0, '2023-12-19 12:51:18', '2023-12-19 12:51:18'),
+(44, 107690, 'DaNa Fresh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2024-01-15 13:19:54', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 4, 5, 0, '2024-01-11 13:19:54', '2024-01-11 13:19:54'),
+(45, 1016400, 'DaNa Fresh', '01663971006', 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', '', '2024-01-15 13:20:19', 'Thanh toán tiền mặt khi nhận hàng', '4', '', 4, 5, 0, '2024-01-11 13:20:19', '2024-01-11 13:45:44'),
+(50, 461010, 'Trần Văn A', '0935789876', '12 Hùng Vương, Đà Nẵng', '', '2024-01-22 14:42:19', 'Thanh toán tiền mặt khi nhận hàng', '4', '', 31, 34, 0, '2024-01-18 14:42:19', '2024-01-18 14:43:24'),
+(51, 425920, 'Khách Hàng', '0987857467', '48 Cao Thắng - Hải Châu - Đà Nẵng', '', '2024-01-23 16:16:39', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 34, 5, 0, '2024-01-19 16:16:39', '2024-01-19 16:16:39'),
+(52, 108900, 'Trần Thị Thu Phương', '0935789876', '12 Hùng Vương, Đà Nẵng', '', '2024-01-23 16:26:05', 'Thanh toán tiền mặt khi nhận hàng', '0', NULL, 31, 31, 0, '2024-01-19 16:26:05', '2024-01-19 16:26:05');
 
 -- --------------------------------------------------------
 
@@ -249,7 +277,7 @@ CREATE TABLE `pdf_products` (
   `product_description` text COLLATE utf8_unicode_ci NOT NULL,
   `product_content` text COLLATE utf8_unicode_ci NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -259,19 +287,17 @@ CREATE TABLE `pdf_products` (
 --
 
 INSERT INTO `pdf_products` (`product_id`, `product_name`, `product_slug`, `product_unit`, `product_price`, `product_promotion`, `product_condition`, `product_featured`, `product_img`, `product_description`, `product_content`, `category_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(11, 'Bơ Booth', 'bo-booth', 'kg', 79000, '', '1', '1', 'bobooth.jpg', 'Bơ Booth xuất xứ Đắc Lắc- Sản phẩm được cung cấp bởi Thực phẩm an toàn PandaFood', '<p>Bơ Booth xuất xứ Đắc Lắc- Sản phẩm được cung cấp bởi Thực phẩm an to&agrave;n PandaFood</p>\r\n', 14, 4, '2018-06-16 08:39:25', '2018-06-16 08:41:56'),
+(11, 'Bơ Booth.', 'bo-booth', 'kg', 79000, '', '1', '1', 'bobooth.jpg', 'Bơ Booth xuất xứ Đắc Lắc- Sản phẩm được cung cấp bởi Thực phẩm an toàn PandaFood', '<p>Bơ Booth xuất xứ Đắc Lắc- Sản phẩm được cung cấp bởi Thực phẩm an to&agrave;n PandaFood</p>\r\n', 14, 4, '2018-06-16 08:39:25', '2024-01-11 13:36:39'),
 (12, 'Chuối Gold Đà Lạt', 'chuoi-gold-da-lat', 'kg', 23000, '', '1', '1', 'chuoigo_420.jpg', 'Chuối Gold Đà Lạt, sản phẩm được cung cấp bởi Thực phẩm an toàn PandaFood', '<p>Chuối Gold Đ&agrave; Lạt, sản phẩm được cung cấp bởi Thực phẩm an to&agrave;n PandaFood</p>\r\n', 14, 4, '2018-06-16 08:46:43', '2018-06-16 08:46:43'),
-(13, 'Bưởi da xanh', 'buoi-da-xanh', 'kg', 89000, '', '1', '1', 'buoi_da_xanh2_master.jpg', 'Bưởi da xanh là loại trái cây thuộc cùng họ với cam,quýt. Đây là loại trái cây hình tròn, võ màu xanh, ruột màu hồng, mọng nước, ăn bưởi có mùi thơm, vị hơi chua pha lẫn ngọt thanh. Ăn bưởi da xanh có nhiều tác dụng có lợi cho sức khỏe và được người tiêu dùng đánh giá là loại trái cây lành nhất trong thế giới hoa quả.  Chính vì thế mà vài năm trở lại đây bưởi da xanh là loại trái cây không thể thiếu trong các gia đình sau bữa ăn, làm thức uống hàng ngày và cũng là loại trái cây thay thế cho trái dưa hấu để cúng trong những ngày tết cổ truyền của Việt Nam.', '<p style=\"text-align:justify\">Bưởi da xanh&nbsp;c&oacute; nguồn gốc từ &ocirc;ng s&aacute;u Lu&ocirc;ng, một người n&ocirc;ng d&acirc;n ở ấp An Thuận, x&atilde; Mỹ Thạnh An, th&agrave;nh phố Bến Tre. Từ một người ch&aacute;u ruột của &ocirc;ng S&aacute;u Lu&ocirc;ng kể lại rằng: v&agrave;o những năm 1940 sau một lần đi ăn đ&aacute;m giỗ ở x&atilde; Ti&ecirc;n Thũy (H&agrave;m Lu&ocirc;ng).&nbsp; Sau khi ăn miếng bưởi &ocirc;ng S&aacute;u qu&aacute; bất ngờ với vị ngon của loại tr&aacute;i c&acirc;y n&agrave;y v&agrave; cố t&igrave;nh lấy hạt bỏ v&agrave;o t&uacute;i v&agrave; đem về nh&agrave; ương l&ecirc;n v&agrave; trồng tại vườn nh&agrave;. Sau v&agrave;i năm trồng th&igrave; c&acirc;y đ&atilde; cho tr&aacute;i v&agrave; c&oacute; vị ngon, ngọt như &ocirc;ng đ&atilde; từng ăn. Thế l&agrave; c&acirc;y bưởi được nh&acirc;n giống ra cho một số người th&acirc;n quen của &ocirc;ng bằng c&aacute;ch chiếc c&agrave;nh. Dần theo thời gian th&igrave; bưởi da xanh được nh&acirc;n rộng khắp cả nước&nbsp; như ng&agrave;y h&ocirc;m nay v&agrave; thường được gọi với t&ecirc;n bưởi da xanh Bến Tre.</p>\r\n\r\n<p style=\"text-align:justify\">Bưởi da xanh l&agrave; loại tr&aacute;i c&acirc;y thuộc c&ugrave;ng họ với cam,qu&yacute;t. Đ&acirc;y l&agrave; loại tr&aacute;i c&acirc;y h&igrave;nh tr&ograve;n, v&otilde; m&agrave;u xanh, ruột m&agrave;u hồng, mọng nước, ăn bưởi c&oacute; m&ugrave;i thơm, vị hơi chua pha lẫn ngọt thanh. Ăn bưởi da xanh c&oacute; nhiều t&aacute;c dụng c&oacute; lợi cho sức khỏe v&agrave; được người ti&ecirc;u d&ugrave;ng đ&aacute;nh gi&aacute; l&agrave; loại tr&aacute;i c&acirc;y l&agrave;nh nhất trong thế giới hoa quả. Ch&iacute;nh v&igrave; thế m&agrave; v&agrave;i năm trở lại đ&acirc;y bưởi da xanh l&agrave; loại tr&aacute;i c&acirc;y kh&ocirc;ng thể thiếu trong c&aacute;c gia đ&igrave;nh sau bữa ăn, l&agrave;m thức uống h&agrave;ng ng&agrave;y v&agrave; cũng l&agrave; loại tr&aacute;i c&acirc;y thay thế cho tr&aacute;i dưa hấu để c&uacute;ng trong những ng&agrave;y tết cổ truyền của Việt Nam.</p>\r\n', 14,4, '2018-06-16 08:48:04', '2018-06-16 08:48:04'),
-(14, 'Cam Cara Mỹ', 'cam-cara-my', 'kg', 129000, '', '1', '1', 'cam-cara_be56c53a95f8497db96939a99aa18f92_master.jpg', 'Cam ruột đỏ không hạt Mỹ thuộc giống Cara Cara có vị ngọt đặc biệt, hương thơm của cam ruột đỏ dễ làm người ta liên tưởng đến hương bưởi. Với đặc trưng nhiều nước và vị ngọt khá lạ, Cam ruột đỏ được ưa chuộng hơn nhiều so với người anh em Navel.\r\n\r\nThuộc giống Cara cara, lớp vỏ của cam ruột đỏ không hạt dễ làm người ta liên tưởng tới cam navel, nhưng khác với navel, cam cara cara không hề có phần “rốn” và nếu để ý kỹ, các bạn sẽ thấy phần vỏ trơn láng của cam ruột đỏ không hạt hơi có sắc hồng.', '<h4 style=\"text-align:justify\">CAM CARA RUỘT ĐỎ</h4>\r\n\r\n<h4 style=\"text-align:justify\">LỢI &Iacute;CH KHI ĂN CAM CAM CARA RUỘT ĐỎ</h4>\r\n\r\n<h4 style=\"text-align:justify\">► Chống l&atilde;o h&oacute;a da</h4>\r\n\r\n<p style=\"text-align:justify\">Trong quả cam cara ruột đỏ chứa h&agrave;m lượng vitamin C rất lớn 130% nhu cầu vitamin C h&agrave;ng ng&agrave;y n&ecirc;n rất tốt cho da, chống l&atilde;o h&oacute;a rất th&iacute;ch hợp cho người mệt mỏi v&igrave; tăng cường sức đề kh&aacute;ng</p>\r\n\r\n<h4 style=\"text-align:justify\">► Ngăn ngừa ung thư</h4>\r\n\r\n<p style=\"text-align:justify\">Chất Lycopene l&agrave; một loại chất chống oxy h&oacute;a gi&uacute;p ngăn ngừa c&aacute;c bệnh ung thư v&agrave; gi&uacute;p hệ tim mạch lu&ocirc;n khỏe mạnh</p>\r\n\r\n<h4 style=\"text-align:justify\">►Ph&ograve;ng chống t&aacute;o b&oacute;n</h4>\r\n\r\n<p style=\"text-align:justify\">Chất xơ trong cam gi&uacute;p ph&ograve;ng chống t&aacute;o b&oacute;n, gi&uacute;p hệ ti&ecirc;u h&oacute;a khỏe mạnh, gi&uacute;p l&agrave;n da lu&ocirc;n khỏe khoắn</p>\r\n\r\n<p style=\"text-align:justify\">Ngo&agrave;i ra trong cam cara n&agrave;y c&ograve;n chứa nhiều chất dinh dưỡng kh&aacute;c như vitamin A,B, canxi, Magie, sắt, đồng, iot..</p>\r\n', 15,4, '2018-06-16 08:50:52', '2018-06-16 08:50:52'),
-(15, 'Lê Nâu Hàn Quốc', 'le-nau-han-quoc', 'kg', 89000, '', '1', '1', 'le-han-quoc-01_master.jpg', 'Lê nâu Hàn Quốc là hoa quả nhập khẩu có dáng quả tròn to, kích thước lớn, mỗi quả nặng từ 600- 750 gram. Vỏ khá mỏng, mịn và có màu vàng nâu nhạt, khi bổ ra có màu trắng mọng nước.', '<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc&nbsp;l&agrave;&nbsp;hoa quả nhập khẩu&nbsp;c&oacute; d&aacute;ng quả tr&ograve;n to, k&iacute;ch thước lớn, mỗi quả nặng từ 600- 750 gram. Vỏ kh&aacute; mỏng, mịn v&agrave; c&oacute; m&agrave;u v&agrave;ng n&acirc;u nhạt, khi bổ ra c&oacute; m&agrave;u trắng mọng nước.</p>\r\n\r\n<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc kh&ocirc;ng những thơm ngon m&agrave; c&ograve;n c&oacute; nhiều t&aacute;c dụng chữa bệnh m&agrave; nhiều người chưa biết đến:</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">Ngăn ngừa bệnh tiểu đường.</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">Trong l&ecirc; n&acirc;u c&oacute; chứa nhiều chất xơ dễ h&ograve;a tan n&ecirc;n ngăn ngừa được sự ph&aacute;t triển của bệnh tiểu đường.&nbsp;Đối với c&aacute;c bệnh nh&acirc;n bệnh tiểu đường th&igrave; l&ecirc; n&acirc;u vừa l&agrave; loại tr&aacute;i c&acirc;y ngon miệng lại vừa chữa bệnh rất tốt.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">Thanh nhiệt, giải độc, tăng cường sức khỏe.</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">L&agrave; loại tr&aacute;i c&acirc;y c&oacute; nhiều vitamin A, E, C, nước, l&ecirc; n&acirc;u gi&uacute;p tăng cường sức khỏe, bổ sung dưỡng chất, nước cho cơ thể. Đặc biệt, đối với những người lao động nặng hoặc vận động nhiều th&igrave; việc ăn l&ecirc; n&acirc;u H&agrave;n Quốc thường xuy&ecirc;n sẽ v&ocirc; c&ugrave;ng tốt.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">L&agrave;m đẹp da</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">Thường xuy&ecirc;n ăn l&ecirc; n&acirc;u sẽ gi&uacute;p l&agrave;n da căng mịn, s&aacute;ng b&oacute;ng do được bổ sung vitamin E v&agrave; nước từ quả l&ecirc;.B&ecirc;n cạnh đ&oacute;, chị em c&oacute; thể sử dụng l&ecirc; n&acirc;u để l&agrave;m mặt nạ dưỡng da gi&uacute;p căng da, giảm nếp nhăn, ngăn ngừa mụn, giảm độ nhờn v&agrave; trắng da.</p>\r\n\r\n<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc&nbsp;l&agrave; sản phẩm rất được người d&acirc;n h&agrave;n Quốc y&ecirc;u th&iacute;ch. Đến nay, sản phẩm n&agrave;y đ&atilde; xuất hiện nhiều ở Việt Nam v&agrave; ng&agrave;y c&agrave;ng được người ti&ecirc;u d&ugrave;ng ưa chuộng.&nbsp;H&atilde;y bổ sung sản phẩm n&agrave;y&nbsp;v&agrave;o thực đơn hằng ng&agrave;y để đảm bảo sức khỏe cho cả gia đ&igrave;nh, đặc biệt l&agrave; trẻ nhỏ v&agrave; người lao động với cường độ cao.</p>\r\n', 15, 4,'2018-06-16 08:51:57', '2018-06-16 08:51:57'),
-(16, 'Cải thìa hữu cơ', 'cai-thia-huu-co', 'kg', 42000, '', '1', '1', 'cai_thia2_672037c7f4fe42ecb4a4befa050520a2_master.jpg', '• Cải thìa là loại rau rất gần gũi với các món ăn của người Việt Nam. Rau giòn, vị ngon, ngọt.\r\n• Cải thìa có chứa folate, kali và calci giúp xương chắc khỏe.\r\n• Các chất thuộc nhóm carotenoid trong cải thìa có tác dụng như chất làm chậm quá trình oxi hóa và giảm việc hình thành những nguồn gốc có hại trong cơ thể.', '<p style=\"text-align:justify\"><strong>GIỚI THIỆU</strong><br />\r\n&bull; Cải th&igrave;a l&agrave; loại rau rất gần gũi với c&aacute;c m&oacute;n ăn của người Việt Nam. Rau gi&ograve;n, vị ngon, ngọt.<br />\r\n<strong>C&Ocirc;NG DỤNG</strong><br />\r\n&bull; Cải th&igrave;a c&oacute; chứa folate, kali v&agrave; calci gi&uacute;p xương chắc khỏe.<br />\r\n&bull; C&aacute;c chất thuộc nh&oacute;m carotenoid trong cải th&igrave;a c&oacute; t&aacute;c dụng như chất l&agrave;m chậm qu&aacute; tr&igrave;nh oxi h&oacute;a v&agrave; giảm việc h&igrave;nh th&agrave;nh những nguồn gốc c&oacute; hại trong cơ thể.</p>\r\n\r\n<p style=\"text-align:justify\"><strong>Đặc điểm:</strong>&nbsp;Rau gi&ograve;n, vị ngon, ngọt.<br />\r\nC&aacute;ch bảo quản: Bảo quản ở nhiệt độ 5-12&deg;C. C&oacute; thể bảo quản đến 15 ng&agrave;y.<br />\r\nLƯỢNG D&Ugrave;NG<br />\r\n&bull; Cải th&igrave;a cung cấp rất &iacute;t calories v&igrave; vậy c&oacute; thể ăn bao nhi&ecirc;u t&ugrave;y th&iacute;ch.<br />\r\n<strong>C&Aacute;CH D&Ugrave;NG</strong><br />\r\n&bull; N&ecirc;n x&agrave;o cải th&igrave;a để giữ lượng vitamin C v&agrave; folate trong rau.<br />\r\n&bull; Nước luộc cải cũng c&oacute; thể d&ugrave;ng l&agrave;m canh v&igrave; chứa nhiều chất kho&aacute;ng; x&aacute;c rau sẽ mất bớt những chất n&agrave;y trong qu&aacute; tr&igrave;nh đun nấu.</p>\r\n\r\n<p style=\"text-align:justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sản phẩm được cung cấp bởi Pandafood, được bảo hiểm 100% từ bảo hiểm thực phẩm Prudential.</p>\r\n', 16,4, '2018-06-16 08:54:17', '2018-06-16 08:54:17'),
-(17, 'Bầu Hữu Cơ', 'bau-huu-co', 'kg', 29000, '', '1', '1', 'bau-11_14adb4c84c6546c49269594969cd2790_master.jpg', 'Bầu thường được chế biến kèm các món xào, hay đơn giản chỉ để nấu canh, luộc chấm thôi cũng rất ngon. Có điều mà chúng ta ít biết đó là mọi bộ phận của cây bầu như lá, tua cuốn, hoa, rễ bầu... đều có tác dụng chữa bệnh kỳ diệu.\r\n\r\nBầu Hữu Cơ là sản phẩm được cung cấp bởi Cửa hàng thực phẩm sạch Pandafood.', '<p style=\"text-align:justify\">Trong bữa cơm h&agrave;ng ng&agrave;y, ch&uacute;ng ta đ&atilde; từng bắt gặp m&oacute;n ăn từ quả bầu. N&oacute; thường được chế biến k&egrave;m c&aacute;c m&oacute;n x&agrave;o, hay đơn giản chỉ để nấu canh, luộc chấm th&ocirc;i cũng rất ngon. C&oacute; điều m&agrave; ch&uacute;ng ta &iacute;t biết đ&oacute; l&agrave; mọi bộ phận của c&acirc;y bầu như l&aacute;, tua cuốn, hoa, rễ bầu... đều c&oacute; t&aacute;c dụng chữa bệnh kỳ diệu.</p>\r\n\r\n<p style=\"text-align:justify\"><img alt=\"Quả bầu, trái bầu cung cấp bởi sunfood\" src=\"http://file.hstatic.net/1000198833/file/bau23_large.jpg\" /></p>\r\n\r\n<p style=\"text-align:justify\">Với vị ngọt, t&iacute;nh lạnh, quả bầu c&oacute; t&aacute;c dụng giải nhiệt, giải độc, lợi tiểu, chữa đ&aacute;i dắt, đ&aacute;i đường... L&aacute; bầu cũng được coi l&agrave; một thực phẩm đẩy l&ugrave;i cơn đ&oacute;i. Với những ai bị r&ocirc;m, mụn, nhọt, tua cuốn bầu cũng l&agrave; một vị thuốc hay.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>Quả bầu c&oacute; t&aacute;c dụng giảm c&acirc;n</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Trong quả bầu chứa nhiều chất xơ, vitamin cũng như chứa nhiều canxi, nước, magie, sắt&hellip; v&agrave; chứa rất &iacute;t calo. Ăn quả bầu gi&uacute;p bạn giảm c&acirc;n hiệu quả. Bạn c&oacute; thể chế biến th&agrave;nh nước &eacute;p để uống h&agrave;ng ng&agrave;y, hoặc đơn giản chỉ luộc v&agrave; chấm ăn cũng rất hữu &iacute;ch cho việc giảm c&acirc;n.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>L&agrave;m sạch ruột, ngừa ung thư, chống t&aacute;o b&oacute;n nhờ quả bầu</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Trong quả bầu c&oacute; nhiều chất xơ kh&ocirc;ng h&ograve;a tan, c&oacute; t&aacute;c dụng l&agrave;m sạch ruột, gi&uacute;p cho việc ti&ecirc;u h&oacute;a thuận lợi hơn, tr&aacute;nh được t&igrave;nh trạng t&aacute;o b&oacute;n. Ăn quả bầu cũng l&agrave; c&aacute;ch gi&uacute;p bạn ph&ograve;ng ngừa ung thư, giảm việc t&iacute;ch tụ nồng độ axit v&agrave; t&iacute;ch lũy kh&iacute; trong ruột.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>Quả bầu l&agrave;m chậm qu&aacute; tr&igrave;nh l&atilde;o h&oacute;a t&oacute;c</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Từ l&acirc;u quả bầu đ&atilde; được xem l&agrave; phương thuốc điều trị t&oacute;c bạc. Mỗi ng&agrave;y chỉ cần một ly nước bầu sẽ gi&uacute;p bạn &quot;đảo ng&oacute;i&quot; cho m&aacute;i t&oacute;c hoa r&acirc;m của m&igrave;nh.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>Gi&uacute;p ph&ograve;ng ngừa v&agrave; điều trị mất ngủ</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Nếu thường xuy&ecirc;n bị cảm gi&aacute;c mất ngủ, bạn c&oacute; thể uống nước bầu, v&igrave; n&oacute; c&oacute; t&aacute;c dụng gi&uacute;p bạn c&oacute; được giấc ngủ s&acirc;u hơn.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>Duy tr&igrave; l&agrave;n da khỏe mạnh</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Ai cũng mong muốn m&igrave;nh sở hữu l&agrave;n da s&aacute;ng m&agrave;u v&agrave; khỏe mạnh. Chỉ bằng c&aacute;ch bổ sung th&ecirc;m nhiều bầu trong khẩu phần ăn h&agrave;ng ng&agrave;y sẽ gi&uacute;p bạn l&agrave;m được điều đ&oacute;. Uống nước bầu thường xuy&ecirc;n sẽ gi&uacute;p bạn bổ sung c&aacute;c vitamin thiết yếu, gi&uacute;p kh&ocirc;i phục lại sức sống cho l&agrave;n da. Nước bầu cũng gi&uacute;p trẻ h&oacute;a tế b&agrave;o da thậm ch&iacute; c&ograve;n điều tiết sản xuất dầu ngăn chặn mụn ph&aacute;t triển.</p>\r\n\r\n<h2 style=\"text-align:justify\"><strong>Trị vi&ecirc;m gan, sỏi đường niệu, huyết &aacute;p cao</strong></h2>\r\n\r\n<p style=\"text-align:justify\">Bạn h&atilde;y lấy 500g quả bầu tươi, rửa sạch vắt lấy nước cốt v&agrave; trộn đều với 250ml mật ong, mỗi ng&agrave;y uống 2 lần, mỗi lần 30 - 50ml cũng gi&uacute;p hỗ trợ điều trị hiệu quả bệnh vi&ecirc;m gan, sỏi đường niệu, huyết &aacute;p cao.</p>\r\n', 16,4, '2018-06-16 08:55:44', '2018-06-16 08:55:44'),
-(18, 'Ba rọi bò Mỹ', 'ba-roi-bo-my', 'kg', 200000, '', '1', '1', 'baroibomy1_master.jpg', 'Thịt bò Mỹ nổi tiếng khắp thế giới nhờ hương vị và vân mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn và chuyên biệt hơn, nhờ vào hệ thống sản xuất, chế biến và phân phối thịt hiệu quả nhất thế giới.', '<p style=\"text-align:justify\">Thịt b&ograve; Mỹ nổi tiếng khắp thế giới nhờ hương vị v&agrave; v&acirc;n mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn v&agrave; chuy&ecirc;n biệt hơn, nhờ v&agrave;o hệ thống sản xuất, chế biến v&agrave; ph&acirc;n phối thịt hiệu quả nhất thế giới. Thịt b&ograve; Mỹ l&agrave; sự lựa chọn tốt nhất v&igrave; ch&uacute;ng ta biết c&oacute; thể tin tưởng v&agrave;o hệ thống ti&ecirc;u chuẩn chất lượng lu&ocirc;n được duy tr&igrave; ở mức cao. Thịt b&ograve; được nhập khẩu trực tiếp, theo ti&ecirc;u chuẩn của Bộ N&ocirc;ng Nghiệp Hoa Kỳ (USDA). Tất cả đều thuộc ph&acirc;n hạng Cao Cấp.</p>\r\n\r\n<p style=\"text-align:justify\">M&oacute;n B&ograve; Mỹ cuộn nấm kim ch&acirc;m&nbsp;<br />\r\nTrụng sơ nấm kim ch&acirc;m trong nước s&ocirc;i khoảng 30 gi&acirc;y. Sau đ&oacute; lấy ra dĩa, th&ecirc;m một &iacute;t muối cho vừa ăn.<br />\r\nTrải l&aacute;t ba rọi b&ograve; ra, bỏ nấm kim ch&acirc;m v&agrave;o v&agrave; cuộn lại. Bạn c&oacute; thể d&ugrave;ng tăm xi&ecirc;n qua để giữ thịt b&ograve; v&agrave; nấm, hoặc d&ugrave;ng nấm kim ch&acirc;m để buộc miếng b&ograve; lại.<br />\r\nĐun n&oacute;ng một &iacute;t dầu ăn tr&ecirc;n chảo, sau đ&oacute; chi&ecirc;n thịt b&ograve; cuộn nấm kim ch&acirc;m cho đến khi v&agrave;ng gi&ograve;n.&nbsp;<br />\r\nNgon hơn khi d&ugrave;ng với sốt v&agrave; phục vụ khi m&oacute;n ăn c&ograve;n n&oacute;ng.</p>\r\n', 17,4, '2018-06-16 08:57:00', '2018-06-16 08:57:00'),
-(19, 'Sườn bò Mỹ có xương', 'suon-bo-my-co-xuong', 'kg', 413000, '', '1', '1', 'suon_bo_my_master.jpg', 'Thịt bò Mỹ nổi tiếng khắp thế giới nhờ hương vị và vân mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn và chuyên biệt hơn, nhờ vào hệ thống sản xuất, chế biến và phân phối thịt hiệu quả nhất thế giới. Thịt bò Mỹ là sự lựa chọn tốt nhất vì chúng ta biết có thể tin tưởng vào hệ thống tiêu chuẩn chất lượng luôn được duy trì ở mức cao. ', '<p>Thịt b&ograve; Mỹ nổi tiếng khắp thế giới nhờ hương vị v&agrave; v&acirc;n mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn v&agrave; chuy&ecirc;n biệt hơn, nhờ v&agrave;o hệ thống sản xuất, chế biến v&agrave; ph&acirc;n phối thịt hiệu quả nhất thế giới. Thịt b&ograve; Mỹ l&agrave; sự lựa chọn tốt nhất v&igrave; ch&uacute;ng ta biết c&oacute; thể tin tưởng v&agrave;o hệ thống ti&ecirc;u chuẩn chất lượng lu&ocirc;n được duy tr&igrave; ở mức cao.&nbsp;</p>\r\n', 17,4, '2018-06-16 08:58:37', '2018-06-16 08:58:37'),
-(20, 'CÁ BÒ DA', 'ca-bo-da', 'gói', 263000, '', '1', '1', 'ca-bo-da-sach-1_master.png', '', '<p><strong>C&aacute; B&ograve; Da&nbsp;</strong>được cung cấp bởi&nbsp;cửa h&agrave;ng thực phẩm sạch Pandafood&nbsp;l&agrave; một lo&agrave;i c&aacute; nước mặn, c&oacute; vẻ ngo&agrave;i xấu x&iacute;, nhưng khi qua chế biến lại c&oacute; m&ugrave;i thơm quyến rũ khiến thực kh&aacute;ch kh&oacute; l&ograve;ng cưỡng lại được.</p>\r\n\r\n<p><img alt=\"Cá bò da, được cung cấp bởi cửa hàng thực phẩm sạch Sunfood, sản phẩm đảm bảo an toàn chất lượng và được bảo hiểm 100%\" src=\"http://file.hstatic.net/1000198833/file/ca-bo-da-sach-sunfood_large.png\" /></p>\r\n\r\n<h2>M&oacute;n ăn từ C&aacute; B&ograve; da</h2>\r\n\r\n<p>Nhắc tới c&aacute; b&ograve; da mọi người đều nghĩ ngay tới m&oacute;n nướng muối ớt. C&aacute; b&ograve; da nướng than, c&aacute; b&ograve; da nướng muối ớt, nướng l&aacute; chuối, nướng giấy bạc... Tuy nhi&ecirc;n, c&aacute; b&ograve; da c&ograve;n rất nổi tiếng với nhiều m&oacute;n ăn kh&aacute;c như lẩu, canh chua, đặc biệt l&agrave; m&oacute;n Gỏi c&aacute; b&ograve; da.</p>\r\n\r\n<p><strong>C&aacute; b&ograve; da nguy&ecirc;n con</strong>&nbsp;(từ 0,5kg đến 2,0kg). con c&agrave;ng lớn ăn c&agrave;ng ngon.</p>\r\n\r\n<h2>C&aacute;ch l&agrave;m m&oacute;n canh chua c&aacute; b&ograve; da ngon đ&uacute;ng điệu</h2>\r\n\r\n<p>Nguy&ecirc;n liệu:&nbsp;</p>\r\n\r\n<ul>\r\n	<li>C&aacute; b&ograve; da 1 con&nbsp;</li>\r\n	<li>C&agrave; chua: 2 quả</li>\r\n	<li>Dọc m&ugrave;ng (bạc h&agrave;): 2 lạng</li>\r\n	<li>Bột m&igrave;: 1 lạng</li>\r\n	<li>Dứa thơm: nửa quả</li>\r\n	<li>Đậu bắp&nbsp;</li>\r\n	<li>Gi&aacute; đỗ</li>\r\n	<li>Nước mắm</li>\r\n	<li>Đường</li>\r\n	<li>Bột n&ecirc;m</li>\r\n	<li>Me vắt: nửa lạng</li>\r\n	<li>H&agrave;nh t&iacute;m, h&agrave;nh l&aacute;, ớt tr&aacute;i</li>\r\n	<li>Rau thơm</li>\r\n</ul>\r\n\r\n<p>C&aacute;ch l&agrave;m</p>\r\n\r\n<ul>\r\n	<li>Bước 1: C&aacute; b&ograve; da mua tại cửa h&agrave;ng thực phẩm sạch Sunfood, r&atilde; đ&ocirc;ng Cho c&aacute; b&ograve; da v&agrave;o khay sau đ&oacute; thoa phần bột m&igrave; l&ecirc;n m&igrave;nh c&aacute; rồi vuốt dọc từ đầu đến đu&ocirc;i c&aacute; cho sạch nhớt, rửa c&aacute; lại bằng nước lạnh thật sạch. Cắt kh&uacute;c vừa ăn hoặc cắt l&agrave;m đ&ocirc;i.</li>\r\n	<li>Bước 2: Bạc h&agrave; tước vỏ, cắt kh&uacute;c vừa ăn, b&oacute;p sạch với ch&uacute;t muối. C&agrave; chua bổ m&uacute;i cau, thơm th&aacute;i l&aacute;t. Đậu bắp cắt bỏ cuống, th&aacute;i l&aacute;t vừa ăn.</li>\r\n	<li>Bước 3: Phi thơm h&agrave;nh t&iacute;m với &nbsp;dầu ăn, đổ c&agrave; chua v&agrave;o x&agrave;o ch&iacute;n v&agrave; n&ecirc;m th&ecirc;m một muỗng canh nước mắm. Chế nước s&ocirc;i ngập mặt c&agrave; chua v&agrave; n&ecirc;m gia vị, đường cho vừa khẩu vị.</li>\r\n	<li>Bước 4: Vắt me cho ra t&ocirc;, chế nước d&ugrave;ng c&aacute; v&agrave;o khuấy cho me tan rồi đổ từ từ nước me v&agrave;o nồi nước d&ugrave;ng. Cho thơm v&agrave;o nồi để thơm tiết ra chất l&agrave;m ngọt v&agrave; thơm nước d&ugrave;ng.</li>\r\n	<li>Cuối c&ugrave;ng cho c&aacute; v&agrave;o nồi, đun lửa nhỏ chừng 15 ph&uacute;t. C&aacute; ch&iacute;n vớt ra để ri&ecirc;ng. Th&ecirc;m bạc h&agrave;, đậu bắp v&agrave;o nấu chừng 3 ph&uacute;t cho mềm rồi cho gi&aacute; đỗ v&agrave;o. Canh s&ocirc;i, cho c&aacute; lại v&agrave;o nồi, rắc h&agrave;nh, rau thơm th&aacute;i nhỏ l&ecirc;n v&agrave; tắt bếp.</li>\r\n	<li>\r\n	<p>M&oacute;n canh c&aacute; b&ograve; da nấu chua c&oacute; vị ngọt của nước d&ugrave;ng c&aacute;, chua nhẹ của dứa v&agrave; thơm của h&agrave;nh, rau thơm sẽ chinh phục c&aacute;c bạn ngay trong lần đầu thưởng thức. C&aacute;c bạn c&oacute; thể d&ugrave;ng canh c&aacute; b&ograve; da nấu chua với b&uacute;n hoặc với cơm. Ăn k&egrave;m rau sống v&agrave; nước mắm cay rất ngon nh&eacute;!</p>\r\n	K&iacute;nh ch&uacute;c qu&yacute; kh&aacute;ch c&oacute; một bữa ăn thật ngon miệng c&ugrave;ng gia đ&igrave;nh!</li>\r\n</ul>\r\n', 18, 4,'2018-06-16 09:00:24', '2018-06-16 09:00:24'),
-(21, 'Hạt chia', 'hat-chia', 'gói', 359000, '', '1', '1', 'hat_chia_sabal_master.jpg', 'Hạt Chia: Sản phẩm được cung cấp bởi Thực phẩm an toàn PandaFood\r\n\r\nHạt chia có nguồn acid béo thiết yếu Omega-3 vượt trội, hàm lượng Natri thấp, hàm lượng protein, chất béo, chất xơ và chất chống oxy hóa cao. Hạt có hàm lượng đạm 19-23%, nguồn vitamin B dồi dào, canxi cao gấp 6 lần sữa, chất xơ cao gấp 1,6 lần lúa mạch, nồng độ lipid trong hạt cũng rất cao.', '<p style=\"text-align:justify\">Hạt Chia: Sản phẩm được cung cấp bởi Thực phẩm an to&agrave;n PandaFood</p>\r\n\r\n<p style=\"text-align:justify\">Hạt chia c&oacute; nguồn acid b&eacute;o thiết yếu Omega-3 vượt trội, h&agrave;m lượng Natri thấp, h&agrave;m lượng protein, chất b&eacute;o, chất xơ v&agrave; chất chống oxy h&oacute;a cao. Hạt c&oacute; h&agrave;m lượng đạm 19-23%, nguồn vitamin B dồi d&agrave;o, canxi cao gấp 6 lần sữa, chất xơ cao gấp 1,6 lần l&uacute;a mạch, nồng độ lipid trong hạt cũng rất cao.</p>\r\n', 19,4, '2018-06-16 09:01:47', '2018-06-16 09:01:47'),
-(22, 'Hạt Sen', 'hat-sen', 'kg', 50000, '', '1', '1', 'hat_sen_3a26efff9b1043f887bb42291b94ea6b_master.jpg', 'Hạt sen sau khi thu hoạch sẽ được lột vỏ và xử lý vệ sinh. Sau đó đưa vào buồng Sấy thăng hoa trong môi trường chân không với tác nhân dầu, cho ra sản phẩm Hạt Sen Sấy vẫn giữ được màu sắc tự nhiên, không biến dạng, không caramel hóa, không bị thấm dầu với độ giòn vừa phải và hương vị hạt sen vẫn được bảo quản sau khi sấy.', '<p style=\"text-align:justify\">Hạt sen sau khi thu hoạch sẽ được lột vỏ v&agrave; xử l&yacute; vệ sinh. Sau đ&oacute; đưa v&agrave;o buồng Sấy thăng hoa trong m&ocirc;i trường ch&acirc;n kh&ocirc;ng với t&aacute;c nh&acirc;n dầu, cho ra sản phẩm&nbsp;Hạt Sen Sấy&nbsp;vẫn giữ được m&agrave;u sắc tự nhi&ecirc;n, kh&ocirc;ng biến dạng, kh&ocirc;ng caramel h&oacute;a, kh&ocirc;ng bị thấm dầu với độ gi&ograve;n vừa phải v&agrave; hương vị hạt sen vẫn được bảo quản sau khi sấy.</p>\r\n\r\n<p style=\"text-align:justify\">Hạt sen cung cấp cho cơ thể những dưỡng chất cần thiết như protit, lipit, gluxit, canxi, photpho, sắt,&hellip;</p>\r\n\r\n<p style=\"text-align:justify\">Hạt sen rất gi&agrave;u c&aacute;c vitamin B1, vitamin B2, vitamin PP, vitamin C&hellip;</p>\r\n\r\n<p style=\"text-align:justify\">H&agrave;m lượng mỡ b&atilde;o h&ograve;a, natri v&agrave; cholesterol trong hạt sen rất thấp.</p>\r\n\r\n<p style=\"text-align:justify\">Hạt sen c&oacute; t&aacute;c dụng tăng cường chức năng tỳ vị, đảm bảo dinh dưỡng cho cơ thể, điều h&ograve;a sự thu nạp thức ăn.</p>\r\n\r\n<p style=\"text-align:justify\">bổ sung chất kho&aacute;ng, chất xơ v&agrave; đặc biệt ph&ugrave; hợp với chế độ ăn ki&ecirc;ng.</p>\r\n\r\n<p style=\"text-align:justify\">Ăn hạt sen chữa mất ngủ, thiếu m&aacute;u, k&eacute;n ăn, l&agrave;m đẹp da, chống l&atilde;o h&oacute;a</p>\r\n\r\n<p style=\"text-align:justify\">Hạt sen c&ograve;n gi&agrave;u h&agrave;m lượng kaempferol, một chất flavonoid tự nhi&ecirc;n rất hữu &iacute;ch, c&oacute; t&aacute;c dụng ngăn ngừa vi&ecirc;m nhiễm, đặc biệt l&agrave; t&aacute;c dụng chống vi&ecirc;m c&aacute;c m&ocirc; lợi, nhất l&agrave; ở nh&oacute;m người cao ni&ecirc;n.</p>\r\n\r\n<p style=\"text-align:justify\">Sản phẩm n&ecirc;n bảo quản nơi kh&ocirc; r&aacute;o, tho&aacute;ng m&aacute;t v&agrave; giữ k&iacute;n gi&oacute; khi sử dụng.</p>\r\n', 19, 4,'2018-06-16 09:02:44', '2018-06-16 09:02:44'),
-(23, 'Hồng sấy dẻo', 'hong-say-deo', 'Gói 250g', 70000, '', '1', '1', 'hong-say-deo_b8bae8f006ee46879e056e3e19e69285_master.jpg', 'Đặc sản Đà Lạt-Hồng sấy dẻo-được cung cấp bởi thực phẩm an toàn PandaFood\r\n\r\n', '<p style=\"text-align:justify\">Hồng l&agrave; một trong top 4 loại tr&aacute;i c&acirc;y được b&igrave;nh chọn l&agrave; ngon nhất v&agrave; l&agrave; sản phẩm độc đ&aacute;o của v&ugrave;ng đất Đ&agrave; Lạt.</p>\r\n\r\n<p style=\"text-align:justify\">Sản phẩm hồng sấy dẻo được l&agrave;m từ tr&aacute;i hồng cũng l&agrave; một đặc sản được y&ecirc;u th&iacute;ch của kh&aacute;ch du lịch khi đến Đ&agrave; Lạt. C&oacute; hai loại l&agrave; hồng sấy nguy&ecirc;n tr&aacute;i v&agrave; hồng sấy nửa tr&aacute;i (c&ograve;n gọi l&agrave; hồng dẻo miếng)</p>\r\n\r\n<p style=\"text-align:justify\">Để l&agrave;m ra hồng sấy dẻo, phải chọn lựa những tr&aacute;i hồng thật ch&iacute;n, như vậy khi ăn sẽ kh&ocirc;ng bị ch&aacute;t.</p>\r\n\r\n<p style=\"text-align:justify\">Hồng được gọt vỏ rửa sạch, để miếng hồng l&agrave;m ra c&oacute; m&agrave;u sắc rất đỏ đẹp, kh&ocirc;ng bị đen.&nbsp;Sau đ&oacute; tr&aacute;i hồng được đưa v&agrave;o l&ograve; sấy trong nhiều giờ, để hồng được ngon v&agrave; kh&ocirc; đều người sấy phải thường xuy&ecirc;n lật tr&aacute;i hồng. T&ugrave;y theo thời gian sấy sẽ cho ra l&ograve; hồng sấy dẻo hay hồng sấy kh&ocirc; đ&aacute;p ứng nhu cầu của từng kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<p style=\"text-align:justify\">Sản phẩm được cung cấp bởi PandaFood</p>\r\n', 19,4, '2018-06-16 09:04:10', '2018-06-16 09:04:10');
+(13, 'Bưởi da xanh', 'buoi-da-xanh', 'kg', 89000, '', '1', '1', 'buoi_da_xanh2_master.jpg', 'Bưởi da xanh là loại trái cây thuộc cùng họ với cam,quýt. Đây là loại trái cây hình tròn, võ màu xanh, ruột màu hồng, mọng nước, ăn bưởi có mùi thơm, vị hơi chua pha lẫn ngọt thanh. Ăn bưởi da xanh có nhiều tác dụng có lợi cho sức khỏe và được người tiêu dùng đánh giá là loại trái cây lành nhất trong thế giới hoa quả.  Chính vì thế mà vài năm trở lại đây bưởi da xanh là loại trái cây không thể thiếu trong các gia đình sau bữa ăn, làm thức uống hàng ngày và cũng là loại trái cây thay thế cho trái dưa hấu để cúng trong những ngày tết cổ truyền của Việt Nam.', '<p style=\"text-align:justify\">Bưởi da xanh&nbsp;c&oacute; nguồn gốc từ &ocirc;ng s&aacute;u Lu&ocirc;ng, một người n&ocirc;ng d&acirc;n ở ấp An Thuận, x&atilde; Mỹ Thạnh An, th&agrave;nh phố Bến Tre. Từ một người ch&aacute;u ruột của &ocirc;ng S&aacute;u Lu&ocirc;ng kể lại rằng: v&agrave;o những năm 1940 sau một lần đi ăn đ&aacute;m giỗ ở x&atilde; Ti&ecirc;n Thũy (H&agrave;m Lu&ocirc;ng).&nbsp; Sau khi ăn miếng bưởi &ocirc;ng S&aacute;u qu&aacute; bất ngờ với vị ngon của loại tr&aacute;i c&acirc;y n&agrave;y v&agrave; cố t&igrave;nh lấy hạt bỏ v&agrave;o t&uacute;i v&agrave; đem về nh&agrave; ương l&ecirc;n v&agrave; trồng tại vườn nh&agrave;. Sau v&agrave;i năm trồng th&igrave; c&acirc;y đ&atilde; cho tr&aacute;i v&agrave; c&oacute; vị ngon, ngọt như &ocirc;ng đ&atilde; từng ăn. Thế l&agrave; c&acirc;y bưởi được nh&acirc;n giống ra cho một số người th&acirc;n quen của &ocirc;ng bằng c&aacute;ch chiếc c&agrave;nh. Dần theo thời gian th&igrave; bưởi da xanh được nh&acirc;n rộng khắp cả nước&nbsp; như ng&agrave;y h&ocirc;m nay v&agrave; thường được gọi với t&ecirc;n bưởi da xanh Bến Tre.</p>\r\n\r\n<p style=\"text-align:justify\">Bưởi da xanh l&agrave; loại tr&aacute;i c&acirc;y thuộc c&ugrave;ng họ với cam,qu&yacute;t. Đ&acirc;y l&agrave; loại tr&aacute;i c&acirc;y h&igrave;nh tr&ograve;n, v&otilde; m&agrave;u xanh, ruột m&agrave;u hồng, mọng nước, ăn bưởi c&oacute; m&ugrave;i thơm, vị hơi chua pha lẫn ngọt thanh. Ăn bưởi da xanh c&oacute; nhiều t&aacute;c dụng c&oacute; lợi cho sức khỏe v&agrave; được người ti&ecirc;u d&ugrave;ng đ&aacute;nh gi&aacute; l&agrave; loại tr&aacute;i c&acirc;y l&agrave;nh nhất trong thế giới hoa quả. Ch&iacute;nh v&igrave; thế m&agrave; v&agrave;i năm trở lại đ&acirc;y bưởi da xanh l&agrave; loại tr&aacute;i c&acirc;y kh&ocirc;ng thể thiếu trong c&aacute;c gia đ&igrave;nh sau bữa ăn, l&agrave;m thức uống h&agrave;ng ng&agrave;y v&agrave; cũng l&agrave; loại tr&aacute;i c&acirc;y thay thế cho tr&aacute;i dưa hấu để c&uacute;ng trong những ng&agrave;y tết cổ truyền của Việt Nam.</p>\r\n', 14, 4, '2018-06-16 08:48:04', '2018-06-16 08:48:04'),
+(14, 'Cam Cara Mỹ', 'cam-cara-my', 'kg', 129000, '', '1', '1', 'cam-cara_be56c53a95f8497db96939a99aa18f92_master.jpg', 'Cam ruột đỏ không hạt Mỹ thuộc giống Cara Cara có vị ngọt đặc biệt, hương thơm của cam ruột đỏ dễ làm người ta liên tưởng đến hương bưởi. Với đặc trưng nhiều nước và vị ngọt khá lạ, Cam ruột đỏ được ưa chuộng hơn nhiều so với người anh em Navel.\r\n\r\nThuộc giống Cara cara, lớp vỏ của cam ruột đỏ không hạt dễ làm người ta liên tưởng tới cam navel, nhưng khác với navel, cam cara cara không hề có phần “rốn” và nếu để ý kỹ, các bạn sẽ thấy phần vỏ trơn láng của cam ruột đỏ không hạt hơi có sắc hồng.', '<h4 style=\"text-align:justify\">CAM CARA RUỘT ĐỎ</h4>\r\n\r\n<h4 style=\"text-align:justify\">LỢI &Iacute;CH KHI ĂN CAM CAM CARA RUỘT ĐỎ</h4>\r\n\r\n<h4 style=\"text-align:justify\">► Chống l&atilde;o h&oacute;a da</h4>\r\n\r\n<p style=\"text-align:justify\">Trong quả cam cara ruột đỏ chứa h&agrave;m lượng vitamin C rất lớn 130% nhu cầu vitamin C h&agrave;ng ng&agrave;y n&ecirc;n rất tốt cho da, chống l&atilde;o h&oacute;a rất th&iacute;ch hợp cho người mệt mỏi v&igrave; tăng cường sức đề kh&aacute;ng</p>\r\n\r\n<h4 style=\"text-align:justify\">► Ngăn ngừa ung thư</h4>\r\n\r\n<p style=\"text-align:justify\">Chất Lycopene l&agrave; một loại chất chống oxy h&oacute;a gi&uacute;p ngăn ngừa c&aacute;c bệnh ung thư v&agrave; gi&uacute;p hệ tim mạch lu&ocirc;n khỏe mạnh</p>\r\n\r\n<h4 style=\"text-align:justify\">►Ph&ograve;ng chống t&aacute;o b&oacute;n</h4>\r\n\r\n<p style=\"text-align:justify\">Chất xơ trong cam gi&uacute;p ph&ograve;ng chống t&aacute;o b&oacute;n, gi&uacute;p hệ ti&ecirc;u h&oacute;a khỏe mạnh, gi&uacute;p l&agrave;n da lu&ocirc;n khỏe khoắn</p>\r\n\r\n<p style=\"text-align:justify\">Ngo&agrave;i ra trong cam cara n&agrave;y c&ograve;n chứa nhiều chất dinh dưỡng kh&aacute;c như vitamin A,B, canxi, Magie, sắt, đồng, iot..</p>\r\n', 15, 5, '2018-06-16 08:50:52', '2018-06-16 08:50:52'),
+(15, 'Lê Nâu Hàn Quốc', 'le-nau-han-quoc', 'kg', 89000, '', '1', '1', 'le-han-quoc-01_master.jpg', 'Lê nâu Hàn Quốc là hoa quả nhập khẩu có dáng quả tròn to, kích thước lớn, mỗi quả nặng từ 600- 750 gram. Vỏ khá mỏng, mịn và có màu vàng nâu nhạt, khi bổ ra có màu trắng mọng nước.', '<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc&nbsp;l&agrave;&nbsp;hoa quả nhập khẩu&nbsp;c&oacute; d&aacute;ng quả tr&ograve;n to, k&iacute;ch thước lớn, mỗi quả nặng từ 600- 750 gram. Vỏ kh&aacute; mỏng, mịn v&agrave; c&oacute; m&agrave;u v&agrave;ng n&acirc;u nhạt, khi bổ ra c&oacute; m&agrave;u trắng mọng nước.</p>\r\n\r\n<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc kh&ocirc;ng những thơm ngon m&agrave; c&ograve;n c&oacute; nhiều t&aacute;c dụng chữa bệnh m&agrave; nhiều người chưa biết đến:</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">Ngăn ngừa bệnh tiểu đường.</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">Trong l&ecirc; n&acirc;u c&oacute; chứa nhiều chất xơ dễ h&ograve;a tan n&ecirc;n ngăn ngừa được sự ph&aacute;t triển của bệnh tiểu đường.&nbsp;Đối với c&aacute;c bệnh nh&acirc;n bệnh tiểu đường th&igrave; l&ecirc; n&acirc;u vừa l&agrave; loại tr&aacute;i c&acirc;y ngon miệng lại vừa chữa bệnh rất tốt.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">Thanh nhiệt, giải độc, tăng cường sức khỏe.</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">L&agrave; loại tr&aacute;i c&acirc;y c&oacute; nhiều vitamin A, E, C, nước, l&ecirc; n&acirc;u gi&uacute;p tăng cường sức khỏe, bổ sung dưỡng chất, nước cho cơ thể. Đặc biệt, đối với những người lao động nặng hoặc vận động nhiều th&igrave; việc ăn l&ecirc; n&acirc;u H&agrave;n Quốc thường xuy&ecirc;n sẽ v&ocirc; c&ugrave;ng tốt.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<h4 style=\"text-align:justify\">L&agrave;m đẹp da</h4>\r\n	</li>\r\n</ul>\r\n\r\n<p style=\"text-align:justify\">Thường xuy&ecirc;n ăn l&ecirc; n&acirc;u sẽ gi&uacute;p l&agrave;n da căng mịn, s&aacute;ng b&oacute;ng do được bổ sung vitamin E v&agrave; nước từ quả l&ecirc;.B&ecirc;n cạnh đ&oacute;, chị em c&oacute; thể sử dụng l&ecirc; n&acirc;u để l&agrave;m mặt nạ dưỡng da gi&uacute;p căng da, giảm nếp nhăn, ngăn ngừa mụn, giảm độ nhờn v&agrave; trắng da.</p>\r\n\r\n<p style=\"text-align:justify\">L&ecirc; n&acirc;u H&agrave;n Quốc&nbsp;l&agrave; sản phẩm rất được người d&acirc;n h&agrave;n Quốc y&ecirc;u th&iacute;ch. Đến nay, sản phẩm n&agrave;y đ&atilde; xuất hiện nhiều ở Việt Nam v&agrave; ng&agrave;y c&agrave;ng được người ti&ecirc;u d&ugrave;ng ưa chuộng.&nbsp;H&atilde;y bổ sung sản phẩm n&agrave;y&nbsp;v&agrave;o thực đơn hằng ng&agrave;y để đảm bảo sức khỏe cho cả gia đ&igrave;nh, đặc biệt l&agrave; trẻ nhỏ v&agrave; người lao động với cường độ cao.</p>\r\n', 15, 5, '2018-06-16 08:51:57', '2018-06-16 08:51:57'),
+(18, 'Ba rọi bò Mỹ', 'ba-roi-bo-my', 'kg', 200000, '', '1', '1', 'baroibomy1_master.jpg', 'Thịt bò Mỹ nổi tiếng khắp thế giới nhờ hương vị và vân mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn và chuyên biệt hơn, nhờ vào hệ thống sản xuất, chế biến và phân phối thịt hiệu quả nhất thế giới.', '<p style=\"text-align:justify\">Thịt b&ograve; Mỹ nổi tiếng khắp thế giới nhờ hương vị v&agrave; v&acirc;n mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn v&agrave; chuy&ecirc;n biệt hơn, nhờ v&agrave;o hệ thống sản xuất, chế biến v&agrave; ph&acirc;n phối thịt hiệu quả nhất thế giới. Thịt b&ograve; Mỹ l&agrave; sự lựa chọn tốt nhất v&igrave; ch&uacute;ng ta biết c&oacute; thể tin tưởng v&agrave;o hệ thống ti&ecirc;u chuẩn chất lượng lu&ocirc;n được duy tr&igrave; ở mức cao. Thịt b&ograve; được nhập khẩu trực tiếp, theo ti&ecirc;u chuẩn của Bộ N&ocirc;ng Nghiệp Hoa Kỳ (USDA). Tất cả đều thuộc ph&acirc;n hạng Cao Cấp.</p>\r\n\r\n<p style=\"text-align:justify\">M&oacute;n B&ograve; Mỹ cuộn nấm kim ch&acirc;m&nbsp;<br />\r\nTrụng sơ nấm kim ch&acirc;m trong nước s&ocirc;i khoảng 30 gi&acirc;y. Sau đ&oacute; lấy ra dĩa, th&ecirc;m một &iacute;t muối cho vừa ăn.<br />\r\nTrải l&aacute;t ba rọi b&ograve; ra, bỏ nấm kim ch&acirc;m v&agrave;o v&agrave; cuộn lại. Bạn c&oacute; thể d&ugrave;ng tăm xi&ecirc;n qua để giữ thịt b&ograve; v&agrave; nấm, hoặc d&ugrave;ng nấm kim ch&acirc;m để buộc miếng b&ograve; lại.<br />\r\nĐun n&oacute;ng một &iacute;t dầu ăn tr&ecirc;n chảo, sau đ&oacute; chi&ecirc;n thịt b&ograve; cuộn nấm kim ch&acirc;m cho đến khi v&agrave;ng gi&ograve;n.&nbsp;<br />\r\nNgon hơn khi d&ugrave;ng với sốt v&agrave; phục vụ khi m&oacute;n ăn c&ograve;n n&oacute;ng.</p>\r\n', 17, 4, '2018-06-16 08:57:00', '2018-06-16 08:57:00'),
+(19, 'Sườn bò Mỹ có xương', 'suon-bo-my-co-xuong', 'kg', 413000, '', '1', '1', 'suon_bo_my_master.jpg', 'Thịt bò Mỹ nổi tiếng khắp thế giới nhờ hương vị và vân mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn và chuyên biệt hơn, nhờ vào hệ thống sản xuất, chế biến và phân phối thịt hiệu quả nhất thế giới. Thịt bò Mỹ là sự lựa chọn tốt nhất vì chúng ta biết có thể tin tưởng vào hệ thống tiêu chuẩn chất lượng luôn được duy trì ở mức cao. ', '<p>Thịt b&ograve; Mỹ nổi tiếng khắp thế giới nhờ hương vị v&agrave; v&acirc;n mỡ đặc trưng cũng như khả năng cung ứng linh hoạt hơn v&agrave; chuy&ecirc;n biệt hơn, nhờ v&agrave;o hệ thống sản xuất, chế biến v&agrave; ph&acirc;n phối thịt hiệu quả nhất thế giới. Thịt b&ograve; Mỹ l&agrave; sự lựa chọn tốt nhất v&igrave; ch&uacute;ng ta biết c&oacute; thể tin tưởng v&agrave;o hệ thống ti&ecirc;u chuẩn chất lượng lu&ocirc;n được duy tr&igrave; ở mức cao.&nbsp;</p>\r\n', 17, 4, '2018-06-16 08:58:37', '2018-06-16 08:58:37'),
+(20, 'CÁ BÒ DA', 'ca-bo-da', 'gói', 263000, '', '1', '1', 'ca-bo-da-sach-1_master.png', '', '<p><strong>C&aacute; B&ograve; Da&nbsp;</strong>được cung cấp bởi&nbsp;cửa h&agrave;ng thực phẩm sạch Pandafood&nbsp;l&agrave; một lo&agrave;i c&aacute; nước mặn, c&oacute; vẻ ngo&agrave;i xấu x&iacute;, nhưng khi qua chế biến lại c&oacute; m&ugrave;i thơm quyến rũ khiến thực kh&aacute;ch kh&oacute; l&ograve;ng cưỡng lại được.</p>\r\n\r\n<p><img alt=\"Cá bò da, được cung cấp bởi cửa hàng thực phẩm sạch Sunfood, sản phẩm đảm bảo an toàn chất lượng và được bảo hiểm 100%\" src=\"http://file.hstatic.net/1000198833/file/ca-bo-da-sach-sunfood_large.png\" /></p>\r\n\r\n<h2>M&oacute;n ăn từ C&aacute; B&ograve; da</h2>\r\n\r\n<p>Nhắc tới c&aacute; b&ograve; da mọi người đều nghĩ ngay tới m&oacute;n nướng muối ớt. C&aacute; b&ograve; da nướng than, c&aacute; b&ograve; da nướng muối ớt, nướng l&aacute; chuối, nướng giấy bạc... Tuy nhi&ecirc;n, c&aacute; b&ograve; da c&ograve;n rất nổi tiếng với nhiều m&oacute;n ăn kh&aacute;c như lẩu, canh chua, đặc biệt l&agrave; m&oacute;n Gỏi c&aacute; b&ograve; da.</p>\r\n\r\n<p><strong>C&aacute; b&ograve; da nguy&ecirc;n con</strong>&nbsp;(từ 0,5kg đến 2,0kg). con c&agrave;ng lớn ăn c&agrave;ng ngon.</p>\r\n\r\n<h2>C&aacute;ch l&agrave;m m&oacute;n canh chua c&aacute; b&ograve; da ngon đ&uacute;ng điệu</h2>\r\n\r\n<p>Nguy&ecirc;n liệu:&nbsp;</p>\r\n\r\n<ul>\r\n	<li>C&aacute; b&ograve; da 1 con&nbsp;</li>\r\n	<li>C&agrave; chua: 2 quả</li>\r\n	<li>Dọc m&ugrave;ng (bạc h&agrave;): 2 lạng</li>\r\n	<li>Bột m&igrave;: 1 lạng</li>\r\n	<li>Dứa thơm: nửa quả</li>\r\n	<li>Đậu bắp&nbsp;</li>\r\n	<li>Gi&aacute; đỗ</li>\r\n	<li>Nước mắm</li>\r\n	<li>Đường</li>\r\n	<li>Bột n&ecirc;m</li>\r\n	<li>Me vắt: nửa lạng</li>\r\n	<li>H&agrave;nh t&iacute;m, h&agrave;nh l&aacute;, ớt tr&aacute;i</li>\r\n	<li>Rau thơm</li>\r\n</ul>\r\n\r\n<p>C&aacute;ch l&agrave;m</p>\r\n\r\n<ul>\r\n	<li>Bước 1: C&aacute; b&ograve; da mua tại cửa h&agrave;ng thực phẩm sạch Sunfood, r&atilde; đ&ocirc;ng Cho c&aacute; b&ograve; da v&agrave;o khay sau đ&oacute; thoa phần bột m&igrave; l&ecirc;n m&igrave;nh c&aacute; rồi vuốt dọc từ đầu đến đu&ocirc;i c&aacute; cho sạch nhớt, rửa c&aacute; lại bằng nước lạnh thật sạch. Cắt kh&uacute;c vừa ăn hoặc cắt l&agrave;m đ&ocirc;i.</li>\r\n	<li>Bước 2: Bạc h&agrave; tước vỏ, cắt kh&uacute;c vừa ăn, b&oacute;p sạch với ch&uacute;t muối. C&agrave; chua bổ m&uacute;i cau, thơm th&aacute;i l&aacute;t. Đậu bắp cắt bỏ cuống, th&aacute;i l&aacute;t vừa ăn.</li>\r\n	<li>Bước 3: Phi thơm h&agrave;nh t&iacute;m với &nbsp;dầu ăn, đổ c&agrave; chua v&agrave;o x&agrave;o ch&iacute;n v&agrave; n&ecirc;m th&ecirc;m một muỗng canh nước mắm. Chế nước s&ocirc;i ngập mặt c&agrave; chua v&agrave; n&ecirc;m gia vị, đường cho vừa khẩu vị.</li>\r\n	<li>Bước 4: Vắt me cho ra t&ocirc;, chế nước d&ugrave;ng c&aacute; v&agrave;o khuấy cho me tan rồi đổ từ từ nước me v&agrave;o nồi nước d&ugrave;ng. Cho thơm v&agrave;o nồi để thơm tiết ra chất l&agrave;m ngọt v&agrave; thơm nước d&ugrave;ng.</li>\r\n	<li>Cuối c&ugrave;ng cho c&aacute; v&agrave;o nồi, đun lửa nhỏ chừng 15 ph&uacute;t. C&aacute; ch&iacute;n vớt ra để ri&ecirc;ng. Th&ecirc;m bạc h&agrave;, đậu bắp v&agrave;o nấu chừng 3 ph&uacute;t cho mềm rồi cho gi&aacute; đỗ v&agrave;o. Canh s&ocirc;i, cho c&aacute; lại v&agrave;o nồi, rắc h&agrave;nh, rau thơm th&aacute;i nhỏ l&ecirc;n v&agrave; tắt bếp.</li>\r\n	<li>\r\n	<p>M&oacute;n canh c&aacute; b&ograve; da nấu chua c&oacute; vị ngọt của nước d&ugrave;ng c&aacute;, chua nhẹ của dứa v&agrave; thơm của h&agrave;nh, rau thơm sẽ chinh phục c&aacute;c bạn ngay trong lần đầu thưởng thức. C&aacute;c bạn c&oacute; thể d&ugrave;ng canh c&aacute; b&ograve; da nấu chua với b&uacute;n hoặc với cơm. Ăn k&egrave;m rau sống v&agrave; nước mắm cay rất ngon nh&eacute;!</p>\r\n	K&iacute;nh ch&uacute;c qu&yacute; kh&aacute;ch c&oacute; một bữa ăn thật ngon miệng c&ugrave;ng gia đ&igrave;nh!</li>\r\n</ul>\r\n', 18, 5, '2018-06-16 09:00:24', '2018-06-16 09:00:24'),
+(23, 'Hồng sấy dẻo', 'hong-say-deo', 'Gói 250g', 70000, '', '1', '1', 'hong-say-deo_b8bae8f006ee46879e056e3e19e69285_master.jpg', 'Đặc sản Đà Lạt-Hồng sấy dẻo-được cung cấp bởi thực phẩm an toàn PandaFood\r\n\r\n', '<p style=\"text-align:justify\">Hồng l&agrave; một trong top 4 loại tr&aacute;i c&acirc;y được b&igrave;nh chọn l&agrave; ngon nhất v&agrave; l&agrave; sản phẩm độc đ&aacute;o của v&ugrave;ng đất Đ&agrave; Lạt.</p>\r\n\r\n<p style=\"text-align:justify\">Sản phẩm hồng sấy dẻo được l&agrave;m từ tr&aacute;i hồng cũng l&agrave; một đặc sản được y&ecirc;u th&iacute;ch của kh&aacute;ch du lịch khi đến Đ&agrave; Lạt. C&oacute; hai loại l&agrave; hồng sấy nguy&ecirc;n tr&aacute;i v&agrave; hồng sấy nửa tr&aacute;i (c&ograve;n gọi l&agrave; hồng dẻo miếng)</p>\r\n\r\n<p style=\"text-align:justify\">Để l&agrave;m ra hồng sấy dẻo, phải chọn lựa những tr&aacute;i hồng thật ch&iacute;n, như vậy khi ăn sẽ kh&ocirc;ng bị ch&aacute;t.</p>\r\n\r\n<p style=\"text-align:justify\">Hồng được gọt vỏ rửa sạch, để miếng hồng l&agrave;m ra c&oacute; m&agrave;u sắc rất đỏ đẹp, kh&ocirc;ng bị đen.&nbsp;Sau đ&oacute; tr&aacute;i hồng được đưa v&agrave;o l&ograve; sấy trong nhiều giờ, để hồng được ngon v&agrave; kh&ocirc; đều người sấy phải thường xuy&ecirc;n lật tr&aacute;i hồng. T&ugrave;y theo thời gian sấy sẽ cho ra l&ograve; hồng sấy dẻo hay hồng sấy kh&ocirc; đ&aacute;p ứng nhu cầu của từng kh&aacute;ch h&agrave;ng.</p>\r\n\r\n<p style=\"text-align:justify\">Sản phẩm được cung cấp bởi PandaFood</p>\r\n', 19, 5, '2018-06-16 09:04:10', '2024-01-10 11:03:51'),
+(35, 'sản phẩm', 'san-pham', 'gói', 127000, '0', '1', '0', 'apple.png', 'mô tả sản phẩm', '', 22, 34, '2024-01-18 14:41:14', '2024-01-19 15:23:18'),
+(36, 'phi lê cá hồi', 'phi-le-ca-hoi', 'gam', 30000, '0', '1', '0', 'cahoi.jpg', 'phi lê cá hồi', '<p>acb</p>\r\n\r\n<ol>\r\n	<li><strong>xyz</strong></li>\r\n	<li><strong>123</strong></li>\r\n	<li><strong>123</strong></li>\r\n</ol>\r\n', 18, 31, '2024-01-19 16:23:17', '2024-01-19 16:23:17');
 
 -- --------------------------------------------------------
 
@@ -313,8 +339,8 @@ CREATE TABLE `pdf_slides` (
 --
 
 INSERT INTO `pdf_slides` (`slide_id`, `slide_line1`, `slide_line2`, `slide_line3`, `slide_url`, `slide_img`) VALUES
-(3, 'Slide 1 Dòng 1', 'Slide 1 Dòng 2', 'Slide 1 Dòng 3', 'http://pandafood.com/', 'image_placeholder.jpg'),
-(4, 'Slide2 Dòng 1', 'Slide 2 Dòng 2', 'Slide 2 Dòng 3', 'http://pandafood.com', 'image_placeholder.jpg');
+(3, 'Thực phẩm tươi', 'Hàng nhập khẩu', 'Chất lượng kiểm soát', '/', 'banner1.jpg'),
+(4, 'Black Friday', 'Chương trình hạ giá', ' ', '/', 'banner2.jpg');
 
 -- --------------------------------------------------------
 
@@ -328,9 +354,11 @@ CREATE TABLE `pdf_users` (
   `user_password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_fullname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_shop_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_phone` int(11) NOT NULL,
   `user_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `group_id` int(10) UNSIGNED NOT NULL,
+  `user_active` int(1) DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -340,12 +368,16 @@ CREATE TABLE `pdf_users` (
 -- Đang đổ dữ liệu cho bảng `pdf_users`
 --
 
-INSERT INTO `pdf_users` (`user_id`, `user_name`, `user_password`, `user_email`, `user_fullname`, `user_phone`, `user_address`, `group_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$10$SkMsPhsk5qK/Zd/fyTn5je7ifAtlHW65BPQm2RQC6jfpqdI0ACbhK', 'doubletcgaming@gmail.com', 'Hoàng Công Thành', 1663971006, '15 Ngô Thì Nhậm, P. Quang Trung, ', 1, 'nx2Wi8sjjpzKcMyANrSjplIVEk8WsfdSzZLN5u0paBIVS8MMRK7EM3tXnAoW', NULL, '2018-06-25 22:45:21'),
-(2, 'khach', '$2y$10$GuDgxoRwpj1r5bpPonSnOe7NM/3j6W0LPmELjhe7hFl8bVHKXPNRm', 'superchip1020@gmail.com', 'Hoàng Công Thành', 1663971006, '15 Ngô Thì Nhậm, P. Quang Trung, TP. Thái Bình', 2, 'kaUGSFFVql8eYWPfDY9XXIbTZIBJwYMPUPYsxGbeLN4OHnniaxcubgDQZ5ce', NULL, '2018-06-25 22:46:34'),
-(4, 'admin2', '$2y$10$DnGOkK/2Wxnm9kRDS9vcsuhpeFgf.YKl5voqmWp2tTEGFwqeAPg7u', 'doubletc@gmail.com', 'Hoàng Công', 1663971006, '15 Ngô Thì Nhậm, P. Quang Trung', 2, 'b6O1aGHjgv55WRdXqNPV3iAwXP87zWfWBN028U4ulCg3oVERmrLdCxZFVQhC', NULL, '2018-06-11 01:27:13'),
-(5, 'thanhqttb', '$2y$10$SkMsPhsk5qK/Zd/fyTn5je7ifAtlHW65BPQm2RQC6jfpqdI0ACbhK', 'thanhqttb@yahoo.com', 'Hoàng Công Thành', 1663971006, '15 Ngô Thì Nhậm, P. Quang Trung', 2, 'yynjaAWZ4d2d5yvBDXVJlZwWnBAiqvT1fVvQFVxEdfq0oBeI4kzNjR3pUvID', '2018-06-11 04:44:55', '2018-06-20 15:27:26'),
-(6, 'thanhqttb2', '$2y$10$C6eEjvWhBKAZpIYoLV7YnuHnThdfA9UcRmNF970HEiLs8lnmNcSMa', 'thanhqttb2@yahoo.com', 'Hoàng Công Thành', 1663971006, 'Vĩnh Hưng, Hoàng Mai', 2, NULL, '2018-06-20 18:01:53', '2018-06-20 18:01:53');
+INSERT INTO `pdf_users` (`user_id`, `user_name`, `user_password`, `user_email`, `user_fullname`, `user_shop_name`, `user_phone`, `user_address`, `group_id`, `user_active`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'huynhnd', '$2y$10$qr9vSN2GnrK5NCuH0e089OTbNt0j/wG2ULs91B705xuOwwWk0PsRy', 'dev.huynhnd@gmail.com', 'Nguyễn Đức Huynh', NULL, 377545091, 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', 1, 1, 'BI0VCdWeRq2FoKLeSHULWLYmGkIj2fc3qkF9fRkKd7P7xx6Rok5wKc7bEoN3', NULL, '2024-01-19 16:20:07'),
+(2, 'khach', '$2y$10$GuDgxoRwpj1r5bpPonSnOe7NM/3j6W0LPmELjhe7hFl8bVHKXPNRm', 'superchip1020@gmail.com', 'Lê Văn Công Quân', NULL, 1663971006, 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', 2, 1, 'kaUGSFFVql8eYWPfDY9XXIbTZIBJwYMPUPYsxGbeLN4OHnniaxcubgDQZ5ce', NULL, '2024-01-11 14:21:36'),
+(4, 'shop1', '$2y$10$J5K33XLKV.6thS4N9/tISeyPOA0hZdD6OuFHNqr6iXCux8lslz3Vy', 'huynhnd.22@gmail.com', 'DaNa Fresh', 'Hoa quả tươi', 1663971006, 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', 2, 1, 'b6O1aGHjgv55WRdXqNPV3iAwXP87zWfWBN028U4ulCg3oVERmrLdCxZFVQhC', NULL, '2018-06-11 01:27:13'),
+(5, 'huynhnd1', '$2y$10$J5K33XLKV.6thS4N9/tISeyPOA0hZdD6OuFHNqr6iXCux8lslz3Vy', 'darkk2795@gmail.com', 'VieFood', 'fresh food', 1663971006, 'tổ 6, Bình Quế, Thăng Bình, Quảng Nam', 3, 1, 'YaOIhuUVxv6u1gHDtUW5MQU6qDpOOgS1IxNCZXIOCvlbkTMmYydf0NoRuh5T', '2018-06-11 04:44:55', '2024-01-11 14:18:31'),
+(31, 'phuong', '$2y$10$UAuULgPG4ALRp3Lw1sLlZ.PTVc8dBmhXKA1J0WTZeBFWR58tIeZVG', 'phuongtran140503@gmail.com', 'Trần Thị Thu Phương', 'Thực phẩm DN', 935789876, '12 Hùng Vương, Đà Nẵng', 3, 1, 'nCnfygsoHunoWiX8aPXtt4ZjcqC49lV4Q6J1ZOkzVxmpLnZTlb39IvvpvGzb', '2024-01-11 14:19:23', '2024-01-19 16:27:40'),
+(32, 'shop2', '$2y$10$L.gH3J.W3ys1ON4SIrxrWOfhVLj5GRJBvDYgB0VqjVde6C.yDVuE6', 'jpe87673@zslsz.com', 'Trần Phú Thanh', 'Hoa Quả DN', 937947463, '48 Cao thắng Đà Nẵng', 3, 1, NULL, '2024-01-15 13:02:29', '2024-01-15 13:04:05'),
+(33, 'account', '$2y$10$rVBzQnSnBVFpIGtug6vX4egxfSAPsjTnW7qdsKHgth3GhrMtVYPVm', 'abc@gmail.com', 'Trần văn B', NULL, 987467365, '48 Cao Thắng', 2, NULL, NULL, '2024-01-18 14:36:45', '2024-01-18 14:37:05'),
+(34, 'khachhang', '$2y$10$92rLX8IcamLUeinyIq7fV.4LO67dbgKRLjIcZZquyYrZr1ey6BbWC', 'fjg69803@zbock.com', 'Khách Hàng', 'Thực Phẩm Sạch', 987857467, '48 Cao Thắng - Hải Châu - Đà Nẵng', 3, 1, 'LqcnsWCMrVkZZH7ZOqH5zngOXypICgAaOXN4J4IFxiH1gSu5tiEGjDkRpV6q', '2024-01-18 14:38:17', '2024-01-19 16:18:42'),
+(35, '123', '$2y$10$g64u3E1q5J0L3yyPOv.CJO9dxKwpnIa7fdFxv/AgCVEoKWPgKNDvK', '123123@123.com', '123', NULL, 123123123, 'h', 2, NULL, 'PiVmbT9zXmV6r4vffInF6KZFUT0bSKM53B7tKygYLG0n4fL1fBeXVlXQeWkD', '2024-01-19 11:50:50', '2024-01-19 14:47:18');
 
 -- --------------------------------------------------------
 
@@ -362,6 +394,45 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `user_active`
+--
+
+CREATE TABLE `user_active` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `user_active`
+--
+
+INSERT INTO `user_active` (`email`, `token`, `created_at`) VALUES
+('jjg34516@zslsz.com', 'mjmZhUsgKs82HVrBRwXvlSHMOI11B0CNo6OKeIRDPKyObozoMmEQ9cEp6p4uWBAn', '2023-12-25 09:33:21'),
+('raf42431@omeie.com', '6hXFbG8xrc1AkddDRRaq52ASfJnNB7G7x0hVRdKBCkY4z5T3fr5re2IvaiYTLLGt', '2023-12-25 09:37:11'),
+('dev.huynhnd@gmail.com', 'kERd9ZXXX2K23fjpbmUbeqptEuCUPjmH5EgPG1yY5nltsJUgr4eWpSYObmQikHuW', '2023-12-25 10:13:37'),
+('dev.huynhnd@gmail.com', 'rgZf0gzsBdUXktjK87HwjYeFU9eBgnLvD8dkQ3lwSHTtN8VIbVJHCsruxEyJBmSo', '2023-12-25 10:13:39'),
+('dev.huynhnd@gmail.com', 'WfaQXyovU04mE7OzAZelIUdARyBVT8bUoH3ENdVO5eOuLwd740mPjojiYT9J1Pd6', '2023-12-25 10:13:39'),
+('dev.huynhnd@gmail.com', 'EtdbpYE0MmNA59iu64n8fY4uNpn8foYv1ks0LFGINJnUpej18g69CiZBfE6Jfjva', '2023-12-25 10:13:40'),
+('dev.huynhnd@gmail.com', 'IP72WL3DiKQoGlwfjzIyoXQLIIZAzr3dk8u8vctqSLqW5vFSLhCbo6oQJjUXjw8p', '2023-12-25 10:13:40'),
+('dev.huynhnd@gmail.com', 'gqUQotLNHpLLatpZvTGhfnYvTBPgDfydXTiArPld32oZ9QfG47UqdSruiq6GO3ic', '2023-12-25 10:13:40'),
+('eni50438@nezid.com', 'C5lMoyADcwb3njfm0J52IawkCKlpx8INGpbyOwGGmN5DKpLJ0wSdBS2HM4zzICkp', '2023-12-25 10:18:20'),
+('eni50438@nezid.com', '528000', '2023-12-25 10:56:17'),
+('eni50438@nezid.com', '724030', '2023-12-26 09:33:56'),
+('xya65128@nezid.com', '563507', '2023-12-26 09:53:42'),
+('xya65128@nezid.com', '718326', '2023-12-26 09:56:42'),
+('xya65128@nezid.com', '255801', '2023-12-26 09:58:08'),
+('xya65128@nezid.com', '473408', '2023-12-26 09:58:33'),
+('xya65128@nezid.com', '610376', '2023-12-26 09:59:27'),
+('xya65128@nezid.com', '607591', '2023-12-26 10:06:21'),
+('lqr91584@nezid.com', '738294', '2023-12-26 10:38:57'),
+('lqr91584@nezid.com', '188310', '2023-12-26 10:40:52'),
+('lqr91584@nezid.com', '619446', '2023-12-26 11:22:44'),
+('levancongquan@gmail.com', '684381', '2023-12-26 11:47:14');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -427,7 +498,8 @@ ALTER TABLE `pdf_orders`
 ALTER TABLE `pdf_products`
   ADD PRIMARY KEY (`product_id`),
   ADD UNIQUE KEY `pdf_products_product_name_unique` (`product_name`),
-  ADD KEY `pdf_products_category_id_foreign` (`category_id`);
+  ADD KEY `pdf_products_category_id_foreign` (`category_id`),
+  ADD KEY `pdf_products_users_id_foreign` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `pdf_shippers`
@@ -477,13 +549,13 @@ ALTER TABLE `pdf_blogs`
 -- AUTO_INCREMENT cho bảng `pdf_categories`
 --
 ALTER TABLE `pdf_categories`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `pdf_groups`
 --
 ALTER TABLE `pdf_groups`
-  MODIFY `group_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `group_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `pdf_information`
@@ -495,19 +567,19 @@ ALTER TABLE `pdf_information`
 -- AUTO_INCREMENT cho bảng `pdf_orderdetails`
 --
 ALTER TABLE `pdf_orderdetails`
-  MODIFY `detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT cho bảng `pdf_orders`
 --
 ALTER TABLE `pdf_orders`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT cho bảng `pdf_products`
 --
 ALTER TABLE `pdf_products`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `pdf_shippers`
@@ -525,7 +597,7 @@ ALTER TABLE `pdf_slides`
 -- AUTO_INCREMENT cho bảng `pdf_users`
 --
 ALTER TABLE `pdf_users`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -551,19 +623,18 @@ ALTER TABLE `pdf_orderdetails`
   ADD CONSTRAINT `pdf_orderdetails_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `pdf_products` (`product_id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `pdf_products`
---
-ALTER TABLE `pdf_products`
-    ADD CONSTRAINT `pdf_products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `pdf_categories` (`category_id`) ON DELETE CASCADE,
-    ADD CONSTRAINT `pdf_products_users_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `pdf_users` (`user_id`) ON DELETE CASCADE;
-
-
---
 -- Các ràng buộc cho bảng `pdf_orders`
 --
 ALTER TABLE `pdf_orders`
   ADD CONSTRAINT `pdf_orders_shipper_id_foreign` FOREIGN KEY (`shipper_id`) REFERENCES `pdf_shippers` (`shipper_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pdf_orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `pdf_users` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `pdf_products`
+--
+ALTER TABLE `pdf_products`
+  ADD CONSTRAINT `pdf_products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `pdf_categories` (`category_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pdf_products_users_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `pdf_users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `pdf_users`
